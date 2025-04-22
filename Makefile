@@ -6,7 +6,7 @@
 #    By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 14:19:00 by smishos           #+#    #+#              #
-#    Updated: 2025/03/26 14:25:24 by smishos          ###   ########.fr        #
+#    Updated: 2025/04/20 14:36:37 by smishos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS = $(addprefix $(OBJ_DIR)/,  $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) -lreadline
+	$(CC) -o $(NAME) $(OBJS) -pthread
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
