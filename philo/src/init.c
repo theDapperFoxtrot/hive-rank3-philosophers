@@ -14,7 +14,7 @@ int	init_data(t_data *data)
 			return (destroy_mutexes(data, i));
 		i++;
 	}
-	if (pthread_mutex_init(&data->print_message, NULL) != 0)
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (destroy_mutexes(data, data->num_philos));
 	data->running = 1;
 	data->start_time = get_current_time();

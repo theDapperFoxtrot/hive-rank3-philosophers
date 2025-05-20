@@ -1,0 +1,42 @@
+#include "../include/philo.h"
+
+// Thread-safe status printing
+void	print_status(t_kotrt *philo, char *status)
+{
+	pthread_mutex_lock(&philo->data->print_mutex);
+	if (philo->data->running)
+		printf("%ld %d %s\n", \
+			get_current_time() - philo->data->start_time, \
+			philo->id, status);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
+
+// Special print for death to ensure it shows immediately
+void	print_death(t_kotrt *philo)
+{
+	pthread_mutex_lock(&philo->data->print_mutex);
+	printf("%ld %d died\n", \
+		get_current_time() - philo->data->start_time, \
+		philo->id);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
+
+// Precise timing functions
+long	get_current_time(void)
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+}
+
+void	precise_usleep(long milliseconds)
+{
+	long start = get_current_time();
+	while (get_current_time() - start < milliseconds)
+		usleep(500);
+}
+
+long	get_time_since_last_meal(t_kotrt *philo)
+{
+	return get_current_time() - philo->last_meal_time;
+}

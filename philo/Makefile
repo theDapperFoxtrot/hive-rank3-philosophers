@@ -6,7 +6,7 @@
 #    By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 14:19:00 by smishos           #+#    #+#              #
-#    Updated: 2025/05/20 16:25:19 by smishos          ###   ########.fr        #
+#    Updated: 2025/05/20 17:22:16 by smishos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,14 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDE = -I ./libft
 SRCS = 	src/philo_main.c \
-	parsing.c \
-	init.c
+	src/init.c \
+	src/monitor.c \
+	src/parsing.c \
+	src/routine.c \
+	src/simulation.c \
+	utils.c \
+	utils2.c
+
 OBJ_DIR = objects
 OBJS = $(addprefix $(OBJ_DIR)/,  $(SRCS:.c=.o))
 LIBFT = ./libft/libft.a

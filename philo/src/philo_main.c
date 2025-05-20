@@ -18,13 +18,6 @@ int destroy_mutexes(t_data *data, int mutex_count)
 	return (1);
 }
 
-long get_current_time(void)
-{
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-}
-
 void precise_usleep(long milliseconds)
 {
 	long start = get_current_time();
