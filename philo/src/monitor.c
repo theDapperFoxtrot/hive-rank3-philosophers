@@ -2,10 +2,12 @@
 
 void *monitor_routine(void *arg)
 {
-	t_kotrt *philos = (t_kotrt *)arg;
-	t_data *data = philos[0].data;
-	int full_count;
+	t_kotrt	*philos;
+	t_data	*data;
+	int		full_count;
 
+	philos = (t_kotrt *)arg;
+	data = philos[0].data;
 	while (simulation_running(data))
 	{
 		full_count = 0;
@@ -15,9 +17,9 @@ void *monitor_routine(void *arg)
 			if (get_time_since_last_meal(&philos[i]) > data->ttd)
 			{
 				print_death(&philos[i]);
-				pthread_mutex_lock(&data->print_mutex);
+				pthread_mutex_lock(data->print_mutex);
 				data->running = 0;
-				pthread_mutex_unlock(&data->print_mutex);
+				pthread_mutex_unlock(data->print_mutex);
 				return (NULL);
 			}
 			// Check meal completion
@@ -27,9 +29,9 @@ void *monitor_routine(void *arg)
 		// All philosophers have eaten enough
 		if (full_count == data->num_philos)
 		{
-			pthread_mutex_lock(&data->print_mutex);
+			pthread_mutex_lock(data->print_mutex);
 			data->running = 0;
-			pthread_mutex_unlock(&data->print_mutex);
+			pthread_mutex_unlock(data->print_mutex);
 			return (NULL);
 		}
 		// Small delay to prevent busy waiting

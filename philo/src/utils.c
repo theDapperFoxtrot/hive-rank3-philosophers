@@ -3,22 +3,22 @@
 // Thread-safe status printing
 void	print_status(t_kotrt *philo, char *status)
 {
-	pthread_mutex_lock(&philo->data->print_mutex);
+	pthread_mutex_lock(philo->data->print_mutex);
 	if (philo->data->running)
 		printf("%ld %d %s\n", \
 			get_current_time() - philo->data->start_time, \
 			philo->id, status);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	pthread_mutex_unlock(philo->data->print_mutex);
 }
 
 // Special print for death to ensure it shows immediately
 void	print_death(t_kotrt *philo)
 {
-	pthread_mutex_lock(&philo->data->print_mutex);
+	pthread_mutex_lock(philo->data->print_mutex);
 	printf("%ld %d died\n", \
 		get_current_time() - philo->data->start_time, \
 		philo->id);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	pthread_mutex_unlock(philo->data->print_mutex);
 }
 
 // Precise timing functions

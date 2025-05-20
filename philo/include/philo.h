@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:07:41 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/20 17:22:31 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/20 18:33:36 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ typedef struct s_kotrt
 }							t_kotrt;
 
 // philo_main.c
-t_kotrt				*init_philosophers(t_data *data);
+int					error_msg(char *message);
+void				precise_usleep(long milliseconds);
 // cleanup.c
 int					clean_exit(t_kotrt *philos, t_data *data, int exit_code);
 // init.c
 int					init_data(t_data *data);
+t_kotrt				*init_philosophers(t_data *data);
+int					destroy_mutexes(t_data *data, int mutex_count);
 // monitor.c
 void				*monitor_routine(void *arg);
 // parsing.c
@@ -60,7 +63,7 @@ int					parse_arguments(int argc, char **argv, t_data *data);
 int					start_simulation(t_data *data, t_kotrt *philos);
 // routine.c
 void				*philosopher_routine(void *arg);
-int					take_forks(t_kotrt *philo);
+void				take_forks(t_kotrt *philo);
 void				release_forks(t_kotrt *philo);
 // utils.c
 void				print_status(t_kotrt *philo, char *status);

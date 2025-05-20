@@ -1,0 +1,64 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // Basic debugging with thread tracking
+        {
+            "name": "Debug Philosophers",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/philo/philo",
+            "args": ["200", "410", "200", "200"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable thread tracking",
+                    "text": "-interpreter-exec console \"thread apply all bt\""
+                },
+                {
+                    "description": "Enable pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build-debug"
+        },
+        
+        // Helgrind for thread errors
+        {
+            "name": "Helgrind Thread Check",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/usr/bin/valgrind",
+            "args": [
+                "--tool=helgrind",
+                "--log-file=helgrind.log",
+                "./philo/philo", "4", "800", "200", "200", "5"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "build-debug"
+        },
+        
+        // Basic error checking (ASan + UBSan)
+        {
+            "name": "Sanitize Check",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/philo/philo",
+            "args": ["4", "800", "200", "200", "5"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "build-sanitize"
+        }
+    ]
+}

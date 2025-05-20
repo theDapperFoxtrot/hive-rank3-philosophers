@@ -6,22 +6,23 @@
 #    By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 14:19:00 by smishos           #+#    #+#              #
-#    Updated: 2025/05/20 17:22:16 by smishos          ###   ########.fr        #
+#    Updated: 2025/05/20 17:59:00 by smishos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 INCLUDE = -I ./libft
-SRCS = 	src/philo_main.c \
+SRCS = src/philo_main.c \
+	src/cleanup.c \
 	src/init.c \
 	src/monitor.c \
 	src/parsing.c \
 	src/routine.c \
 	src/simulation.c \
-	utils.c \
-	utils2.c
+	src/utils.c \
+	src/utils2.c
 
 OBJ_DIR = objects
 OBJS = $(addprefix $(OBJ_DIR)/,  $(SRCS:.c=.o))

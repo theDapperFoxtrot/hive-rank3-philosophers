@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-debug",
+            "type": "shell",
+            "command": "make re",
+            "options": {
+                "cwd": "${workspaceFolder}/philo"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build-sanitize",
+            "type": "shell",
+            "command": "make fclean && make CFLAGS='-Wall -Wextra -Werror -g -fsanitize=address -fsanitize=undefined'",
+            "options": {
+                "cwd": "${workspaceFolder}/philo"
+            }
+        }
+    ]
+}
