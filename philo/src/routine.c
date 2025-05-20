@@ -5,10 +5,6 @@ void	*philosopher_routine(void *arg)
 	t_kotrt *philo = (t_kotrt *)arg;
 	t_data *data = philo->data;
 
-	// Stagger start for odd philosophers
-	if (data->num_philos % 2 != 0 && philo->id % 2 == 1)
-		precise_usleep(data->tte / 2);
-
 	while (simulation_running(data))
 	{
 		print_status(philo, "is thinking");
