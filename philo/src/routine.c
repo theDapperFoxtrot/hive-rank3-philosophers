@@ -14,6 +14,7 @@ void	*philosopher_routine(void *arg)
 
 	while (simulation_running(data))
 	{
+		print_status(philo, "is thinking"); // Add thinking status before fork attempt
 		take_forks(philo);
 		print_status(philo, "is eating");
 		pthread_mutex_lock(&philo->last_meal_mutex);
