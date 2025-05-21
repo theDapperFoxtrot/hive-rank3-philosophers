@@ -5,13 +5,15 @@ void *monitor_routine(void *arg)
 	t_kotrt	*philos;
 	t_data	*data;
 	int		full_count;
+	int		i;
 
 	philos = (t_kotrt *)arg;
 	data = philos[0].data;
 	while (simulation_running(data))
 	{
 		full_count = 0;
-		for (int i = 0; i < data->num_philos; i++)
+		i = 0;
+		while (i < data->num_philos)
 		{
 			// Check starvation
 			if (get_time_since_last_meal(&philos[i]) > data->ttd)
@@ -25,6 +27,7 @@ void *monitor_routine(void *arg)
 			// Check meal completion
 			if (data->eat_limit > 0 && philos[i].meals_eaten >= data->eat_limit)
 				full_count++;
+			i++;
 		}
 		// All philosophers have eaten enough
 		if (full_count == data->num_philos)

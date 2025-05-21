@@ -55,16 +55,16 @@ t_kotrt *init_philosophers(t_data *data)
 		philos[i].data = data;
 
 		// To avoid deadlock: alternate fork picking order
-		// if (i % 2 == 0)
-		// {
+		if (i % 2 == 0)
+		{
 			philos[i].left_fork = &data->forks[i];
 			philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
-		// }
-		// else
-		// {
-			// philos[i].right_fork = &data->forks[i];
-			// philos[i].left_fork = &data->forks[(i + 1) % data->num_philos];
-		// }
+		}
+		else
+		{
+			philos[i].right_fork = &data->forks[i];
+			philos[i].left_fork = &data->forks[(i + 1) % data->num_philos];
+		}
 		i++;
 	}
 	return (philos);
