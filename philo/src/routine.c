@@ -10,7 +10,9 @@ void	*philosopher_routine(void *arg)
 		print_status(philo, "is thinking");
 		take_forks(philo);
 		print_status(philo, "is eating");
+		pthread_mutex_lock(&philo->last_meal_mutex);
 		philo->last_meal_time = get_current_time();
+		pthread_mutex_unlock(&philo->last_meal_mutex);
 		precise_usleep(data->tte);
 		release_forks(philo);
 		philo->meals_eaten++;
@@ -39,22 +41,4 @@ void release_forks(t_kotrt *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-}
-
-void assign_forks(t_data *data, t_kotrt *philos)
-{
-	int i;
-
-	i = 0;
-	while (i < data->num_philos)
-	{
-		if (i % 2 == 0) {
-			philos[i].left_fork = &data->forks[i];
-			philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
-		} else {
-			philos[i].right_fork = &data->forks[i];
-			philos[i].left_fork = &data->forks[(i + 1) % data->num_philos];
-		}
-		i++;
-	}
 }

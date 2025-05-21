@@ -7,7 +7,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/philo/philo",
-            "args": ["200", "410", "200", "200"],
+            "args": ["4", "410", "200", "200"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -24,7 +24,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "build-debug"
+            // "preLaunchTask": "build-debug"
         },
         
         // Helgrind for thread errors

@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:07:41 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/20 18:33:36 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/21 14:34:23 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_kotrt
 	int							id;
 	pthread_t					thread;
 	long						last_meal_time;
+	pthread_mutex_t				last_meal_mutex;
 	int							meals_eaten;
 	pthread_mutex_t				*left_fork;
 	pthread_mutex_t				*right_fork;

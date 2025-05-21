@@ -56,8 +56,9 @@ AR = ar rcs
 RM = rm -rf
 LIB = ranlib
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CC = clang
+CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
+LDFLAGS = -fsanitize=thread
 
 OBJS = ${SRCS:.c=.o}
 
@@ -68,7 +69,7 @@ ${NAME}: ${OBJS}
 	${LIB} ${NAME}
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@
+	${CC} ${CFLAGS} ${LDFLAGS} -c $< -o $@
 
 clean:
 	${RM} ${OBJS}

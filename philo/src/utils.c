@@ -38,5 +38,10 @@ void	precise_usleep(long milliseconds)
 
 long	get_time_since_last_meal(t_kotrt *philo)
 {
-	return get_current_time() - philo->last_meal_time;
+	long	time_since_last_meal;
+
+	pthread_mutex_lock(&philo->last_meal_mutex);
+	time_since_last_meal = get_current_time() - philo->last_meal_time;
+	pthread_mutex_unlock(&philo->last_meal_mutex);
+	return (time_since_last_meal);
 }
