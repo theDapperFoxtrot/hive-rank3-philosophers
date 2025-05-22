@@ -5,16 +5,23 @@ void	*philosopher_routine(void *arg)
 	t_kotrt *philo = (t_kotrt *)arg;
 	t_data *data = philo->data;
 
-	// Initial offset for odd philosophers
-	if (philo->id % 2 != 0)
-	{
-		print_status(philo, "is thinking");
-		precise_usleep(data->tte);
-	}
+	// Add a special case for single philosopher
+    if (data->num_philos == 1)
+    {
+        pthread_mutex_lock(philo->left_fork);
+        print_status(philo, "has taken a fork");
+        pthread_mutex_unlock(philo->left_fork);
+        // Wait for death without trying to eat
+        while (simulation_running(data))
+            usleep(1000);
+        return NULL;
+    }
 
 	while (simulation_running(data))
 	{
-		print_status(philo, "is thinking"); // Add thinking status before fork attempt
+		if (!simulation_running(data))
+			break;
+		print_status(philo, "is thinking");
 		take_forks(philo);
 		print_status(philo, "is eating");
 		pthread_mutex_lock(&philo->last_meal_mutex);

@@ -18,8 +18,8 @@ void *monitor_routine(void *arg)
 			// Check starvation
 			if (get_time_since_last_meal(&philos[i]) > data->ttd)
 			{
-				print_death(&philos[i]);
 				pthread_mutex_lock(data->print_mutex);
+				print_death(&philos[i]);
 				data->running = 0;
 				pthread_mutex_unlock(data->print_mutex);
 				return (NULL);
@@ -38,7 +38,7 @@ void *monitor_routine(void *arg)
 			return (NULL);
 		}
 		// Small delay to prevent busy waiting
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }

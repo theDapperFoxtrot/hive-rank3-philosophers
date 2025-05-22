@@ -6,13 +6,13 @@
 #    By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 14:19:00 by smishos           #+#    #+#              #
-#    Updated: 2025/05/21 16:38:30 by smishos          ###   ########.fr        #
+#    Updated: 2025/05/22 15:09:32 by smishos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -pthread -g
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 INCLUDE = -I ./libft
 SRCS = src/philo_main.c \
 	src/cleanup.c \
@@ -31,7 +31,7 @@ LIBFT = ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT) -pthread -fsanitize=thread
+	$(CC) -o $(NAME) $(OBJS) $(LIBFT) -pthread
 
 $(LIBFT):
 	@$(MAKE) -C ./libft

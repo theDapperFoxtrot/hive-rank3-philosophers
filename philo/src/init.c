@@ -38,6 +38,22 @@ int	init_data(t_data *data)
 	return (0);
 }
 
+void 	fork_assignment(t_kotrt *philos, int i)
+{
+	if (i % 2 == 0)
+	{
+		philos[i].left_fork = &philos->data->forks[i];
+		philos[i].right_fork = \
+			&philos->data->forks[(i + 1) % philos->data->num_philos];
+	}
+	else
+	{
+		philos[i].right_fork = &philos->data->forks[i];
+		philos[i].left_fork = \
+			&philos->data->forks[(i + 1) % philos->data->num_philos];
+	}
+}
+
 t_kotrt *init_philosophers(t_data *data)
 {
 	int i;
@@ -53,18 +69,7 @@ t_kotrt *init_philosophers(t_data *data)
 		philos[i].last_meal_time = data->start_time;
 		pthread_mutex_init(&philos[i].last_meal_mutex, NULL);
 		philos[i].data = data;
-
-		// To avoid deadlock: alternate fork picking order
-		if (i % 2 == 0)
-		{
-			philos[i].left_fork = &data->forks[i];
-			philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
-		}
-		else
-		{
-			philos[i].right_fork = &data->forks[i];
-			philos[i].left_fork = &data->forks[(i + 1) % data->num_philos];
-		}
+		fork_assignment(philos, i);
 		i++;
 	}
 	return (philos);

@@ -57,8 +57,8 @@ RM = rm -rf
 LIB = ranlib
 
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
-LDFLAGS = -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -g
+LDFLAGS =
 
 OBJS = ${SRCS:.c=.o}
 

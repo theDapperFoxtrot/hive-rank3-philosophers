@@ -6,7 +6,6 @@ int error_msg(char *message)
 	return (1);
 }
 
-
 int main(int argc, char **argv)
 {
 	t_data  data;
