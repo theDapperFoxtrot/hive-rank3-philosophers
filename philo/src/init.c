@@ -1,8 +1,8 @@
 #include "../include/philo.h"
 
-int destroy_mutexes(t_data *data, int mutex_count)
+int	destroy_mutexes(t_data *data, int mutex_count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < mutex_count)
@@ -13,17 +13,17 @@ int destroy_mutexes(t_data *data, int mutex_count)
 
 int	init_data(t_data *data)
 {
-	int i;
+	int	i;
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
 	if (!data->forks)
 		return (1);
 	data->print_mutex = malloc(sizeof(pthread_mutex_t));
-    if (!data->print_mutex)
-    {
-        free(data->forks);
-        return (1);
-    }
+	if (!data->print_mutex)
+	{
+		free(data->forks);
+		return (1);
+	}
 	i = 0;
 	while (i < data->num_philos)
 	{
@@ -38,7 +38,7 @@ int	init_data(t_data *data)
 	return (0);
 }
 
-void 	fork_assignment(t_kotrt *philos, int i)
+void	fork_assignment(t_kotrt *philos, int i)
 {
 	if (i % 2 == 0)
 	{
@@ -54,11 +54,12 @@ void 	fork_assignment(t_kotrt *philos, int i)
 	}
 }
 
-t_kotrt *init_philosophers(t_data *data)
+t_kotrt	*init_philosophers(t_data *data)
 {
-	int i;
+	int		i;
+	t_kotrt	*philos;
 
-	t_kotrt *philos = malloc(sizeof(t_kotrt) * data->num_philos);
+	philos = malloc(sizeof(t_kotrt) * data->num_philos);
 	if (!philos)
 		return (NULL);
 	i = 0;

@@ -1,31 +1,21 @@
 #include "../include/philo.h"
 
-void	*philosopher_routine(void *arg)
+void	*one_philo(t_kotrt *philo, t_data *data)
 {
-	t_kotrt *philo = (t_kotrt *)arg;
-	t_data *data = philo->data;
+	pthread_mutex_lock(philo->left_fork);
+	print_status(philo, "has taken a fork");
+	pthread_mutex_unlock(philo->left_fork);
+	while (simulation_running(data))
+		usleep(1000);
+	return (NULL);
+}
 
-	// Add a special case for single philosopher
-    if (data->num_philos == 1)
-    {
-        pthread_mutex_lock(philo->left_fork);
-        print_status(philo, "has taken a fork");
-        pthread_mutex_unlock(philo->left_fork);
-        // Wait for death without trying to eat
-        while (simulation_running(data))
-            usleep(1000);
-        return NULL;
-    }
-
-	if (philo->id % 2 == 0)
-	{
-		print_status(philo, "is thinking");
-		usleep(500);
-	}
+void	philosopher_routine_running(t_kotrt *philo, t_data *data)
+{
 	while (simulation_running(data))
 	{
 		if (!simulation_running(data))
-			break;
+			return ;
 		print_status(philo, "is thinking");
 		take_forks(philo);
 		print_status(philo, "is eating");
@@ -39,25 +29,41 @@ void	*philosopher_routine(void *arg)
 		precise_usleep(philo, data->tts);
 		usleep(500);
 	}
+}
+
+void	*philosopher_routine(void *arg)
+{
+	t_kotrt	*philo;
+	t_data	*data;
+
+	philo = (t_kotrt *)arg;
+	data = philo->data;
+	if (data->num_philos == 1)
+		return (one_philo(philo, data));
+	if (philo->id % 2 == 0)
+	{
+		print_status(philo, "is thinking");
+		usleep(5000);
+	}
+	philosopher_routine_running(philo, data);
 	return (NULL);
 }
 
 void	take_forks(t_kotrt *philo)
 {
-    // Always take lower-numbered fork first
-    if (philo->left_fork < philo->right_fork)
-    {
-        pthread_mutex_lock(philo->left_fork);
-        pthread_mutex_lock(philo->right_fork);
-    }
-    else
-    {
-        pthread_mutex_lock(philo->right_fork);
-        pthread_mutex_lock(philo->left_fork);
-    }
+	if (philo->left_fork < philo->right_fork)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+	}
 }
 
-void release_forks(t_kotrt *philo)
+void	release_forks(t_kotrt *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);

@@ -22,19 +22,21 @@ void	print_death(t_kotrt *philo)
 // Precise timing functions
 long	get_current_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 void	precise_usleep(t_kotrt *philo, long milliseconds)
 {
-	(void) philo;
-	long start = get_current_time();
+	long	start;
+
+	start = get_current_time();
 	while (get_current_time() - start < milliseconds)
 	{
 		if (simulation_running(philo->data) == 0)
-		return ;
+			return ;
 		usleep(500);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:07:41 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/23 17:54:56 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/23 19:04:41 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 # include <stdlib.h> //malloc, free, write
 # include <string.h> //memset
 # include <sys/time.h> //gettimeofday
-# include <pthread.h> //pthread_create, pthread_detach, pthread_join, pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
+# include <pthread.h>
+//pthread_create, pthread_detach, pthread_join,
+// pthread_mutex_init, pthread_mutex_destroy,
+// pthread_mutex_lock, pthread_mutex_unlock
 # include "../libft/libft.h"
 
-typedef struct  s_data
+typedef struct s_data
 {
 	int							num_philos;
 	int							ttd;
