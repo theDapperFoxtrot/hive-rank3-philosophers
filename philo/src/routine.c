@@ -17,6 +17,11 @@ void	*philosopher_routine(void *arg)
         return NULL;
     }
 
+	if (philo->id % 2 == 0)
+	{
+		print_status(philo, "is thinking");
+		usleep(500);
+	}
 	while (simulation_running(data))
 	{
 		if (!simulation_running(data))
@@ -27,11 +32,12 @@ void	*philosopher_routine(void *arg)
 		pthread_mutex_lock(&philo->last_meal_mutex);
 		philo->last_meal_time = get_current_time();
 		pthread_mutex_unlock(&philo->last_meal_mutex);
-		precise_usleep(data->tte);
+		precise_usleep(philo, data->tte);
 		release_forks(philo);
 		philo->meals_eaten++;
 		print_status(philo, "is sleeping");
-		precise_usleep(data->tts);
+		precise_usleep(philo, data->tts);
+		usleep(500);
 	}
 	return (NULL);
 }

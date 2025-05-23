@@ -27,11 +27,16 @@ long	get_current_time(void)
 	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 }
 
-void	precise_usleep(long milliseconds)
+void	precise_usleep(t_kotrt *philo, long milliseconds)
 {
+	(void) philo;
 	long start = get_current_time();
 	while (get_current_time() - start < milliseconds)
+	{
+		if (simulation_running(philo->data) == 0)
+		return ;
 		usleep(500);
+	}
 }
 
 long	get_time_since_last_meal(t_kotrt *philo)

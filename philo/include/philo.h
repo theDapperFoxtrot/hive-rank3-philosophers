@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:07:41 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/21 14:34:23 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/23 17:54:56 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_kotrt
 	int							id;
 	pthread_t					thread;
 	long						last_meal_time;
-	pthread_mutex_t				last_meal_mutex;
 	int							meals_eaten;
+	pthread_mutex_t				last_meal_mutex;
 	pthread_mutex_t				*left_fork;
 	pthread_mutex_t				*right_fork;
 	t_data						*data;
@@ -49,7 +49,6 @@ typedef struct s_kotrt
 
 // philo_main.c
 int					error_msg(char *message);
-void				precise_usleep(long milliseconds);
 // cleanup.c
 int					clean_exit(t_kotrt *philos, t_data *data, int exit_code);
 // init.c
@@ -70,7 +69,7 @@ void				release_forks(t_kotrt *philo);
 void				print_status(t_kotrt *philo, char *status);
 void				print_death(t_kotrt *philo);
 long				get_current_time(void);
-void				precise_usleep(long milliseconds);
+void				precise_usleep(t_kotrt *philo, long milliseconds);
 long				get_time_since_last_meal(t_kotrt *philo);
 // utils2.c
 int					simulation_running(t_data *data);
