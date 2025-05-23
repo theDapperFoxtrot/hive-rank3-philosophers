@@ -1,1 +1,0 @@
-# hive-rank3-philosophers

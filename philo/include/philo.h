@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:07:41 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/23 19:04:41 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/23 20:12:30 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 //pthread_create, pthread_detach, pthread_join,
 // pthread_mutex_init, pthread_mutex_destroy,
 // pthread_mutex_lock, pthread_mutex_unlock
-# include "../libft/libft.h"
 
 typedef struct s_data
 {
@@ -76,5 +75,7 @@ void				precise_usleep(t_kotrt *philo, long milliseconds);
 long				get_time_since_last_meal(t_kotrt *philo);
 // utils2.c
 int					simulation_running(t_data *data);
+// ft_atoi.c
+int					ft_atoi(const char *str);
 
 #endif
