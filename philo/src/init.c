@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 20:01:36 by smishos           #+#    #+#             */
-/*   Updated: 2025/05/23 20:01:37 by smishos          ###   ########.fr       */
+/*   Updated: 2025/05/26 15:29:20 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	destroy_mutexes(t_data *data, int mutex_count)
 	while (i < mutex_count)
 		pthread_mutex_destroy(&data->forks[i++]);
 	free(data->forks);
+	free(data->print_mutex);
 	return (1);
 }
 
@@ -80,7 +81,8 @@ t_kotrt	*init_philosophers(t_data *data)
 		philos[i].id = i + 1;
 		philos[i].meals_eaten = 0;
 		philos[i].last_meal_time = data->start_time;
-		pthread_mutex_init(&philos[i].last_meal_mutex, NULL);
+		if (pthread_mutex_init(&philos[i].last_meal_mutex, NULL) != 0)
+			clean_exit(philos, data, 1);
 		philos[i].data = data;
 		fork_assignment(philos, i);
 		i++;
