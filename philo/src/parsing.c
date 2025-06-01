@@ -12,6 +12,11 @@
 
 #include "../include/philo.h"
 
+// - Validates argument count (4-5 args + program name)
+// - Parses arguments into data structure
+// - Handles optional meal limit argument
+// - Validates all values are positive integers
+// - Returns error message for invalid input
 int	parse_arguments(int argc, char **argv, t_data *data)
 {
 	if (argc < 5 || argc > 6)

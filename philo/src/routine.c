@@ -12,6 +12,9 @@
 
 #include "../include/philo.h"
 
+// - Special case for single philosopher
+// - Locks single fork then waits indefinitely
+// - Simulates philosopher unable to eat
 void	*one_philo(t_kotrt *philo, t_data *data)
 {
 	pthread_mutex_lock(philo->left_fork);
@@ -22,6 +25,10 @@ void	*one_philo(t_kotrt *philo, t_data *data)
 	return (NULL);
 }
 
+// - Main philosopher activity loop
+// - Thinking > Taking forks > Eating > Sleeping
+// - Updates last meal time and meal count
+// - Uses precise timing functions
 void	philosopher_routine_running(t_kotrt *philo, t_data *data)
 {
 	while (simulation_running(data))
@@ -43,6 +50,10 @@ void	philosopher_routine_running(t_kotrt *philo, t_data *data)
 	}
 }
 
+// - Thread entry point
+// - Handles single-philosopher case
+// - Initial thinking state with staggered start
+// - Calls main activity loop
 void	*philosopher_routine(void *arg)
 {
 	t_kotrt	*philo;
@@ -52,15 +63,18 @@ void	*philosopher_routine(void *arg)
 	data = philo->data;
 	if (data->num_philos == 1)
 		return (one_philo(philo, data));
+	print_status(philo, "is thinking");
 	if (philo->id % 2 == 0)
 	{
-		print_status(philo, "is thinking");
 		usleep(5000);
 	}
 	philosopher_routine_running(philo, data);
 	return (NULL);
 }
 
+// - Implements fork acquisition
+// - Uses left/right fork ordering to prevent deadlocks
+// - Always locks lower-numbered fork first
 void	take_forks(t_kotrt *philo)
 {
 	if (philo->left_fork < philo->right_fork)
@@ -75,6 +89,8 @@ void	take_forks(t_kotrt *philo)
 	}
 }
 
+// - Releases both forks
+// - Unlocks in any order (no deadlock risk)
 void	release_forks(t_kotrt *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
