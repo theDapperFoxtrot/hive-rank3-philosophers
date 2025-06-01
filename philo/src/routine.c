@@ -33,10 +33,10 @@ void	philosopher_routine_running(t_kotrt *philo, t_data *data)
 		print_status(philo, "is eating");
 		pthread_mutex_lock(&philo->last_meal_mutex);
 		philo->last_meal_time = get_current_time();
+		philo->meals_eaten++;
 		pthread_mutex_unlock(&philo->last_meal_mutex);
 		precise_usleep(philo, data->tte);
 		release_forks(philo);
-		philo->meals_eaten++;
 		print_status(philo, "is sleeping");
 		precise_usleep(philo, data->tts);
 		usleep(500);

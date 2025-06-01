@@ -12,17 +12,21 @@
 
 #include "../include/philo.h"
 
-int	bring_out_your_dead(t_kotrt *philos, t_data *data, int i)
+int	bring_out_your_dead(t_kotrt *philos)
 {
-	if (get_time_since_last_meal(&philos[i]) > data->ttd)
-	{
-		pthread_mutex_lock(data->print_mutex);
-		print_death(&philos[i]);
-		data->running = 0;
-		pthread_mutex_unlock(data->print_mutex);
-		return (1);
-	}
-	return (0);
+    time_t	time_since_meal;
+    int	meals;
+
+    pthread_mutex_lock(&philos->last_meal_mutex);  // Lock before reading both values
+    time_since_meal = get_current_time() - philos->last_meal_time;
+    meals = philos->meals_eaten;
+    pthread_mutex_unlock(&philos->last_meal_mutex);  // Unlock after reading
+
+    if (time_since_meal > philos->data->ttd)
+        return (1);
+    if (philos->meals_eaten != -1 && meals >= philos->meals_eaten)
+        return (1);
+    return (0);
 }
 
 int	yall_eat_yet(t_data *data, int full_count)
@@ -52,7 +56,7 @@ void	*monitor_routine(void *arg)
 		i = 0;
 		while (i < data->num_philos)
 		{
-			if (bring_out_your_dead(philos, data, i))
+			if (bring_out_your_dead(philos))
 				return (NULL);
 			if (data->eat_limit > 0 && philos[i].meals_eaten >= data->eat_limit)
 				full_count++;
